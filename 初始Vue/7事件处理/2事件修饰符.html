@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .test{
+            height: 50px;
+            background-color: aqua;
+        }
+        .test1{
+            background-color: aqua;
+        }
+        .test2{
+            background-color: coral;
+        }
+        .test3{
+            height: 200px;
+            width: 200px;
+            background-color: darksalmon;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>hello, {{name}}</h1>
+<!--    阻止默认事件-->
+    <a href="https://www.baidu.com/" @click.prevent="showInfo">点我提示</a>
+
+<!--    阻止事件冒泡-->
+    <div class="test"  @click="showInfo">
+        <button @click.stop="showInfo">点我提示</button>
+    </div>
+
+<!--    事件只触发一次-->
+    <button @click.once="showInfo">点我提示</button>
+
+<!--  使用事件的捕获模式,如果不捕获，点击里面会先从内网外冒泡-->
+    <div class="test1" @click.capture="showMsg(1)">
+        div1
+        <div class="test2" @click="showMsg(2)">
+            div2
+        </div>
+    </div>
+
+    <!--   只有event和target是当前操作元素才会触发事件-->
+    <div class="test"  @click.self="showInfo">
+        <button @click="showInfo">点我提示</button>
+    </div>
+
+<!--    事件的默认行为立即执行，无需等待事件回调执行完毕-->
+    <ul @wheel.passive="demo" class="test3">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: '你好',
+            address:'辽宁沈阳'
+        },
+        methods: {
+            showInfo(event) {
+                console.log(event)
+                alert("这是一条弹出消息")
+            },
+            showMsg(num){
+                console.log(num)
+            },
+            demo(){
+                    console.log('#')
+            }
+        }
+    })
+    console.log(vm)
+</script>
+</body>
+</html>

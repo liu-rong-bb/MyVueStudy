@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深度监视</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+   <span>a的值{{number.a}}</span><br/><br/>
+    <button @click="number.a++">点击a+1</button><br/><br/>
+   <span>a的值{{number.b}}</span><br/><br/>
+    <button @click="number.b++">点击b+1</button>
+</div>
+
+<!--
+    深度监控：
+        1. Vue中的watch默认不监控对象内部的变化
+        2. 配置deep:true可以检测对象内部的值改变
+        3. 监视的两种写法：
+            new Vue时传入watch配置
+            通过vm.$watch进行监视
+-->
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+           number: {
+               a: 1,
+               b: 2
+           }
+        },
+        computed: {
+        },
+        methods: {
+        },
+        watch: {
+            number:{
+                deep: true,  // 深度监视
+                handler(newValue, oldValue) {
+                    console.log('number变化了', newValue, '+++', oldValue)
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

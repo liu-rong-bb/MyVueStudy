@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始Vue</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<!-- 先有容器, 容器和实例是一对一的关系 -->
+<div class="app">
+    <h1>hello , {{name}} {{address}}</h1>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // 创建vue实例
+    new Vue({
+        el: '.app',   // 用于指定为那个容器服务，值通常为css选择器字符串
+        data: {       // data用于存储数据， 数据供el指定的容器使用
+            name: '你好',
+            address: '辽宁沈阳'
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+    <script type="text/javascript" src="../../js/dayjs.min.js"></script>
+</head>
+<body>
+<!--
+    v-text指令：
+        向其所在文本中渲染文本内容
+        与插值语法的区别：v-text会替换掉节点的内容，{{xx则不会}}
+-->
+<div id="app">
+    <h3>{{msg}}</h3>
+    <h3 v-text="str"></h3>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '你好啊',
+            str: ' <h3>你好啊</h3>'
+        },
+    })
+</script>
+</body>
+</html>

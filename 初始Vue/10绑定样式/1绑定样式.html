@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+    <style>
+        .basic {
+            width: 400px;
+            height: 100px;
+            border: 1px solid black;
+        }
+        .happy {
+            border: 5px solid darksalmon;
+            /*background-color: rgba(255, 255, 0, 0.644);*/
+            background: linear-gradient(30deg, yellow, pink, orange, yellow);
+        }
+        .sad {
+            border: 5px dashed darkgreen;
+            background: gray;
+        }
+        .normal {
+            background: aqua;
+        }
+        .liurong1 {
+            background: darkgreen;
+        }
+        .liurong2 {
+            font-size: 30px;
+            text-shadow: 2px 2px 10px red;
+        }
+        .liurong3 {
+            border-radius: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+<!--    绑定class样式-字符串写法，样式类名不确定，需要动态指定-->
+    <div class="basic" :class="a" @click="clickMethod">test</div><br><br>
+
+    <!--    绑定class样式-数组写法，要绑定的样式个数和名字不确定-->
+    <div class="basic" :class="arr">test</div><br><br>
+
+    <!--    绑定class样式-对象写法，动态决定用不用-->
+    <div class="basic" :class="classObj">test</div><br><br>
+
+    <div class="basic" :style="styleObj">test</div><br><br>
+    <div class="basic" :style="[styleObj, styleObj2]">test</div><br><br>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            a: 'normal',
+            arr: ['liurong1', 'liurong2', 'liurong3'],
+            classObj: {
+                liurong1: false,
+                liurong2: false
+            },
+            styleObj: {
+                fontSize: '40px',
+                color: 'red',
+            },
+            styleObj2: {
+                backgroundColor: 'orange'
+            }
+        },
+        methods: {
+            clickMethod() {
+                let arr = ['normal', 'sad', 'happy']
+                this.a = arr[Math.floor(Math.random() * 3)]
+            }
+        }
+    })
+</script>
+</body>
+</html>

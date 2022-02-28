@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+   <span>今天天气很{{info}}</span><br/><br/>
+    <button @click="changeWeather">点击切换</button>
+</div>
+
+<!--
+    计算属性：
+        定义：要用的属性不存在，要通过已有的属性去计算
+        原理：底层借助Object.defineProperty方法的getter和setter
+        getter函数什么时候执行？
+            初次读取时会读取一遍
+            当依赖的数据属性发生变化时会发生改变
+        优势：和methods相比内部有缓存机制，能够复用，使用效率更高
+        备注：
+            计算属性是存在在vm上直接读取即可
+            如果计算属性要被修改，那必须写set函数去响应，且set中要引起计算式依赖的数据属性发生变化
+-->
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+           isHot: true
+        },
+        computed: {
+            info() {
+                return this.isHot ? '炎热' : '凉爽';
+            }
+        },
+        methods: {
+            changeWeather() {
+                this.isHot = !this.isHot
+            }
+        }
+    })
+
+    console.log(vm)
+</script>
+</body>
+</html>

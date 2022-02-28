@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue检测数据改变的原理_数组</title>
+
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="addSex">添加一个性别，默认为男</button>
+    <h2>学校信息</h2>
+    <h3>名称：{{name}}</h3>
+    <h3>地址：{{address}}</h3>
+    <h2>学生信息</h2>
+    <h3>名字：{{student.name}}</h3>
+    <h3>年龄：{{student.age}}</h3>
+    <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+    <h3>朋友：</h3>
+    <ul>
+        <li v-for="(hobby, index) in student.hobbys" :key="index">
+            {{hobby}}
+        </li>
+    </ul>
+   <ul>
+       <li v-for="(friend, index) in student.friends" :key="index">
+           {{friend.name}}--{{friend.age}}--{{friend.sex}}
+       </li>
+   </ul>
+    <ul>
+        <li v-for="(num, index) in 12" :key="index">
+            {{num}}
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // computed实现
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: '刘容学院',
+            address: '辽宁沈阳',
+            student: {
+                name: '刘容',
+                age: 24,
+                hobbys:['吃东西','打牌'],
+                friends: [
+                    {name:'张三', age:23, sex:'女'},
+                    {name:'李四', age:25, sex:'女'}
+                ]
+            }
+
+        },
+        methods: {
+            addSex() {
+                // 在对象中添加属性，并且属性有响应式， 注意添加的对象不能是Vue实例，或者Vue实例根数据对象
+                // Vue.set(this.student, 'sex', '男')
+                this.$set(this.student, 'sex', '男')
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>el和data的两种写法</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1>哈哈哈：{{name}}</h1>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // 创建vue实例
+    const  v = new Vue({
+        el: '#app',
+        data: {
+            name: '你好',
+        }
+    })
+</script>
+</body>
+</html>

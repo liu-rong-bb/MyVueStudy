@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>hello, {{name}}</h1>
+    <input type="text" placeholder="输入回车提示内容" @keyup.caps-lock="showInfo">
+</div>
+
+<!--
+    1.vue中常用的按键：
+        回车 =》 enter
+        删除 =》 delete
+        退出 =》 esc
+        空格 =》 space
+        换行 =》 tab(特殊需要配合keydown使用)
+        上   =》 up
+        下   =》 down
+        左   =》 left
+        右   =>  right
+     2.vue中未提供别名的按钮需要，可以使用按键的原始的key值去绑定，但是有两个单词的需要转换成小写caps-lock(短横线命名)
+
+     3.系统修饰符用法特殊ctrl 、alt、shift、meta
+        (1)配合keyup使用，按下修饰键的同时，按下其他键，释放其他键的同时就会触发
+        (2)直接配置keydown使用
+
+-->
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: '你好',
+            address:'辽宁沈阳'
+        },
+        methods: {
+            showInfo(event) {
+                // if(event.keyCode != 13) return  // 键盘事件的keyCode表述按下的键盘的编码，可以用修饰代替
+                console.log(event.target.value)
+            }
+        }
+    })
+
+    console.log(vm)
+</script>
+</body>
+</html>

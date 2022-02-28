@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h3>当前的n值是：<span v-text="n"></span></h3>
+    <h3>放大10倍后的n值是：<span v-big="n"></span></h3>
+    <button @click="n++">点击+1</button><p/>
+
+<!--    输入框中获取n的值并且聚焦-->
+    <h3><input type="text" v-fbig.value = "n"></h3>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    // 定义成全局，函数
+    Vue.directive('big', function (element, binding){
+        element.innerText = binding.value * 99
+    })
+
+    // 对象定义成全局
+    // Vue.directive('fbig', {
+    //     // 指令与元素成功绑定时
+    //     bind(element, binding) {
+    //         console.log(this) // 注意此处的this时window
+    //         element.value = binding.value
+    //     },
+    //     // 指令所在元素被插入页面时
+    //     inserted(element, binding) {
+    //         element.focus()
+    //     },
+    //     //  指令所在模板被成功解析时
+    //     update(element, binding) {
+    //         element.value = binding.value
+    //         element.focus()
+    //     }
+    // })
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+           n: 1
+        },
+
+        directives: {
+            // big指令何时会发生变化？
+            // 1. 指令与元素成功绑定时
+            // 2. 指令所在模板被成功解析时（只要data中的值发生变化，模板就会重新加载）
+            // big(element, binding){
+            //     element.innerText = binding.value * 99
+            // },
+            fbig: {
+                // 指令与元素成功绑定时
+                bind(element, binding) {
+                    console.log(this) // 注意此处的this时window
+                    element.value = binding.value
+                },
+                // 指令所在元素被插入页面时
+                inserted(element, binding) {
+                    element.focus()
+                },
+                //  指令所在模板被成功解析时
+                update(element, binding) {
+                    element.value = binding.value
+                    element.focus()
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分析生命周期</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h2 >当前n的值是：{{n}}</h2>
+    <button @click="add()">点击n+1</button>
+    <button @click="del()">点我销毁vm</button>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            n: 1
+        },
+        methods:{
+            add(){
+                this.n++
+                console.log('add')
+            },
+            del(){
+                console.log('byb')
+                // 销毁完了vm但是工作成果还在
+                vm.$destroy()
+            }
+        },
+        watch: {
+            n() {
+                console.log('n变了')
+            }
+        },
+
+        // ---------挂载流程
+
+        // 初始化：生命周期、事件。但是数据代理还未开始
+        // 无法通过vm访问data中的数据methods中的方法
+        beforeCreate(){
+            console.log('beforeCreated')
+        },
+        // 初始化： 数据检测、数据代理
+        // 可以通过vm访问data中的数据methods中的方法
+        created() {
+            console.log('created')
+            // console.log(this)
+            // debugger
+        },
+    //    第三步：加载el中的模板
+
+        // 页面呈现的是未经Vue编译的模板结构
+        // 对模板的操作最终都不奏效
+        beforeMount() {
+            console.log('beforeMount')
+            // debugger
+            document.querySelector('h2').innerText = 'nihao'
+            // debugger
+        },
+    //    将虚拟dom插入到真实页面，以上对页面的改动都无效
+
+        // 页面呈现的是经过Vue编译的模板结构
+        // / 对模板的操作都有奏效，一般在此开启定时器、发送网络请求、订阅消息、绑定自定义事件、等初始化操作
+        mounted() {
+            console.log('mounted')
+            debugger
+        },
+
+    //    --------更新流程
+    //    data中数据发生变化，这个函数就会调用，数据更新了页面还没来得及更新
+        beforeUpdate() {
+            console.log('beforeUpdate')
+            // console.log(this.n)
+            // debugger
+        },
+
+    //    随后根据新的数据，生成新的dom，随后与旧的虚拟DOM比较最终完成页面的更新
+
+        //数据和页面都更新了
+        updated(){
+            console.log('updated')
+            // debugger
+        },
+
+    //    ---销毁
+    //    VM中所有的： data、methods、指令等等都处于可用状态，马上要执行销毁过程，
+    //    一般再此阶段：关闭定时器，取消订阅消息，绑定自定义事件等收尾操作
+        beforeDestroy() {
+            console.log('beforeDestory')
+            this.add()
+        },
+
+        destroyed() {
+            console.log('destroyed')
+        }
+    })
+</script>
+</body>
+</html>

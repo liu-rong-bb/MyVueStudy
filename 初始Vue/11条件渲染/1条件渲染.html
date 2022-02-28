@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>展示n的值：{{n}}</h3>
+    <button  v-show="true" @click="n++">n+1</button>
+
+    <h3 v-if="n === 1">你好</h3>
+    <h3 v-else-if="n === 2">你好啊</h3>
+    <h3 v-else-if="n === 3">天气不错</h3>
+    <h3 v-else>哈哈</h3>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            n: 0
+        },
+        methods: {
+
+        }
+    })
+</script>
+</body>
+</html>

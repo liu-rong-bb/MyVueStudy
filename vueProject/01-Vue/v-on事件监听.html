@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on事件监听</title>
+</head>
+<body>
+<div id="app" @click="divClick">
+    {{counter}}
+    <p></p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+<!--    在调用方法中，获取浏览器的event对象，：$event-->
+    <button @click="btnClicks(1,$event)">3</button>
+<!--    v-on:修饰符-->
+    <button>按钮1</button>
+
+<!--    @click.stop只监听自己本身的事件-->
+    <button @click.stop="btnClick">按钮2</button>
+
+<!--    提交的时候在submitClick里面进行提交，不是自动提交-->
+    <br>
+    <form action="baidu">
+        <input type="submit" value="提交" @click.prevent="submitClick">
+    </form>
+
+<!--    监听键盘的暗键-->
+    <input type="text" @keyup.enter="keyUp">
+
+<!--    @click.onece按钮只触发一次-->
+</div>
+
+
+<script src="../vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data:{
+            counter: 0
+        },
+        methods: {
+            increment(){
+                this.counter++
+            },
+            decrement(){
+                this.counter--
+            },
+            btnClicks(a,b){
+                console.log(a,b)
+            },
+            divClick(){
+                console.log("divClick")
+            },
+            btnClick(){
+                console.log("btnClick")
+            },
+            submitClick(){
+                console.log("submitClick")
+            },
+            keyUp(){
+                console.log("keyUp")
+            }
+        }
+    })
+</script>
+</body>
+</html>

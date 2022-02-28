@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">\
+    <title>计算属性</title>
+</head>
+<body>
+
+<div id="test">
+    <h2>你好</h2>
+    <h2>{{fullName}}</h2>
+
+    <h2>书本总价格：{{totalPrice}}</h2>
+</div>
+
+<script src="../vue.js"> </script>
+<script>
+    const app = new Vue({
+        el: '#test',
+        data: {
+            firstName: 'liu',
+            lastName: 'rong',
+            books: [
+                {id:1,name: 'book1', price:1},
+                {id:2,name: 'book2', price:2},
+                {id:3,name: 'book3', price:3},
+                {id:4,name: 'book4', price:4},
+            ]
+        },
+        // computed:计算属性,调用的时候只用一次
+        // 计算属性，相当于一个属性下有set()和get()方法
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName
+            },
+
+            totalPrice(){
+                let result = 0
+                for(let i=0; i<this.books.length; i++){
+                    result += this.books[i].price
+                }
+                // for(let i in this.books){
+                //
+                // }
+                // for(let book of this.books){}
+                return result
+            }
+        },
+        message: {
+            getFullName() {
+                return this.firstName + this.lastName
+            }
+        }
+    })
+</script>
+</body>
+</html>

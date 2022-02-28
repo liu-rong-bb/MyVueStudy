@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收集表单数据</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    账号：<input type="text" v-model="userInfo.account"><br/><br/>
+    密码：<input type="password" v-model="userInfo.password"><br/><br/>
+    性别：
+    男<input type="radio" name="sex" v-model="userInfo.sex" value="man">
+    女<input type="radio" name="sex" v-model="userInfo.sex" value="woman"><br/><br/>
+    爱好：
+    学习<input type="checkbox" v-model="userInfo.hobby" value="study">
+    吃东西<input type="checkbox" v-model="userInfo.hobby" value="eat"><br/><br/>
+    所属地区:
+    <select v-model="userInfo.city">
+        <option value="">请选择地区</option>
+        <option value="changsha">长沙</option>
+        <option value="shenyang">沈阳</option>
+    </select><br/><br/>
+    备注：<textarea v-model="userInfo.beizhu"></textarea><br/><br/>
+    <input type="checkbox" v-model="userInfo.primiss">同意以上需求<br/><br/>
+    <button @click="submitInfo">提交</button>
+    </form>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            userInfo:{
+                account:'',
+                password:'',
+                sex:'man',
+                hobby: [],
+                city:'',
+                beizhu:'',
+                primiss:false
+            }
+        },
+        methods: {
+            submitInfo() {
+                console.log(JSON.stringify(this.userInfo))
+            }
+        }
+    })
+</script>
+</body>
+</html>

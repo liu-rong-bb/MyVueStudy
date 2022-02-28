@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>key的原理</title>
+
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click.once="addPerson">添加一个老刘</button>
+    <ul>
+        <li v-for="(person,index) in persons" :key="person.id">
+            {{person.name}} --- {{person.age}}<input type="text">
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            persons: [
+                {
+                    id: "001",
+                    name: "张三",
+                    age: "18",
+                },
+                {
+                    id: "002",
+                    name: "李四",
+                    age: "19"
+                },
+                {
+                    id: "001",
+                    name: "小刘",
+                    age: "20"
+                }
+            ],
+        },
+        methods: {
+            addPerson(){
+                const a = {id: "004", name: "老刘", age: "25"}
+                this.persons.unshift(a)
+            }
+        }
+    })
+</script>
+</body>
+</html>

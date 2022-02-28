@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表排序</title>
+
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" placeholder="请输入姓名" v-model="keyWord">
+    <button @click="sortType = 2">升序排列</button>
+    <button @click="sortType = 1">降序排列</button>
+    <button @click="sortType = 0">原来顺序</button>
+    <ul>
+        <li v-for="(person,index) in filterPersons" :key="person.id">
+            {{person.name}} --- {{person.age}}
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // computed实现
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            sortType: 0,
+            keyWord:'',
+            persons: [
+                {
+                    id: "001",
+                    name: "张三",
+                    age: "23",
+                    sex: '男'
+                },
+                {
+                    id: "002",
+                    name: "李四",
+                    age: "22",
+                    sex: '女'
+                },
+                {
+                    id: "003",
+                    name: "小刘",
+                    age: "18",
+                    sex: '女'
+                },
+                {
+                    id: "004",
+                    name: "老刘",
+                    age: "44",
+                    sex: '男'
+                }
+            ],
+        },
+        computed: {
+            filterPersons() {
+                const arr =  this.persons.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1
+                })
+
+                // 再进行排序
+                if(this.sortType) {
+                    arr.sort((p1, p2) => {
+                        return this.sortType === 1? p2.age-p1.age : p1.age-p2.age
+                    })
+                }
+                return arr
+            }
+        }
+    })
+</script>
+</body>
+</html>

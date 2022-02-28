@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>helloWorld</title>
+</head>
+<body>
+<div id="test" >
+    <button @click="add">点击</button>
+    <p></p>
+    {{addUser}}
+    <p>{{count * 2}}</p>
+    <h4 v-once>{{message}}</h4>
+</div>
+
+
+<script src="../vue.js"></script>
+<script>
+
+//let(变量)，const(常量)
+    const app = new Vue({
+        el: '#test',  //挂在管理的元素
+        data: { // 定义变量
+
+            message: '其他',
+            name: '交流630V',
+            user: '安徽lr电力测试123',
+            addUser : '1',
+            count: 2
+        },
+        methods: {
+            add(){
+                console.log(this.user.toString())
+              this.addUser =   this.user + this.message+ this.name + 1
+            }
+        }
+    })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind</title>
+
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="app">
+<!--    v-bind就是用于绑定数据和元素属性的-->
+    <a v-bind:href="url">{{message}}</a>
+    <a :href="url">{{message}}</a>
+<!--     对象语法,简写 ：-->
+    <h2 v-bind:class="{active: isActive, line: isLine}">你好啊</h2>
+<!--     v-bind动态绑定class-->
+    <h2 :class="getClass()" @click="btnClicks">你好啊</h2>
+<!--    v-bind绑定数组语法-->
+    <h2 :class="['active', 'line']">你好啊</h2>
+<!--    // v-bind 动态绑定style，对象语法-->
+<!--    :style="{key(属性名):value（属性值）}-->
+    <h2 :style="{fontSize: '30px'}">{{message}}</h2>
+    <h2 :style="{fontSize: finalSize , background: finalColor}">{{message}}</h2>
+
+    <!--    // v-bind 动态绑定style，数组语法-->
+    <h2 :style="[baseStyle]">{{message}}</h2>
+
+    <button v-on:click="btnClicks">点击变色</button>
+    <p></p>
+    <img src="../logo.png" width="100" height="100"/>
+</div>
+
+<div id="app2">
+    <div v-if="role==roleState(1)">你是超级管理员</div>
+    <div v-else-if=" role==roleState(2)">你是使用者</div>
+    <div v-else-if=" role==roleState(3)">你是浏览者</div>
+    <div v-else>你没有权限</div>
+
+<!--    点击哪一行哪一行是红色:定义一个变量记录点击的行数，在click触发的时候赋值index，再动态绑定class的时候判断变量==index-->
+    <ul>
+        <li v-for="(m, index) in movies" :class="getClass(index)" @click="btnClicks(index)" :key="index">{{index}} -- {{m}}</li>
+    </ul>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            url: "http://localhost:9527/#/dashboard",
+            message: "跳转",
+            isLine: true,
+            isActive: true,
+            finalSize: '50px',
+            finalColor: 'red',
+            baseStyle: {background: 'red'}
+        },
+        methods: {
+            btnClicks(){
+                this.isActive = !this.isActive
+            },
+
+            getClass(){
+                return {active: this.isActive, line: this.isLine}
+            }
+        }
+    })
+
+    const app2 = new Vue({
+        el: '#app2',
+        data: {
+            role: 'read',
+            movies: ['速度与激情1' , '速度与激情2', '速度与激情3', '速度与激情4'],
+            clickIndex: 0
+        },
+        methods:{
+            roleState(val){
+                var stateMap = new Map([
+                    ['1','admin'],
+                    ['2','user'],
+                    ['3','read']
+                    ]
+                )
+
+                return stateMap.get(val)
+            },
+
+            btnClicks(index){
+                this.clickIndex = index
+            },
+
+            getClass(index){
+                return {active: index == this.clickIndex}
+            }
+        }
+    })
+</script>
+</body>
+</html>

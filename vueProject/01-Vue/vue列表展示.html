@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表展示</title>
+</head>
+<body>
+
+<div id="test">
+    <ul>
+        <li v-for="item in movies">{{item}}</li>
+    </ul>
+
+    <p></p>
+
+    <h2>当前数据：{{counter}}</h2>
+    // 语法糖，@click是下面的 v-on:click 简写
+    <button @click="add">+</button>
+    <button v-on:click="sub">-</button>
+</div>
+
+
+<script src="../vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#test',
+        data: {
+            message: '你好' ,
+            movies: ['速度与激情1' , '速度与激情2', '速度与激情3', '速度与激情4'],
+            counter: 0
+        },
+        methods: {
+            add: function () {
+                console.log("add执行");
+                this.counter++;
+            },
+            sub: function () {
+                console.log("sub执行");
+                this.counter--;
+            }
+        }
+    })
+</script>
+</body>
+</html>

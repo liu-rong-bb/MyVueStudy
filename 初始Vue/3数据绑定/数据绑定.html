@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始Vue</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+
+<div class="app">
+    单向数据绑定：<input type="text" :value="name"><br/> // 数据只能从data流向页面
+    双向数据绑定：<input type="text" v-model="name"> // 不仅数据只能从data流向页面，还可以页面流向data，一般应用在表单类元素上
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // 创建vue实例
+    new Vue({
+        el: '.app',
+        data: {
+            name: '你好',
+        }
+    })
+</script>
+</body>
+</html>

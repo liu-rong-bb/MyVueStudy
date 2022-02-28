@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>hello, {{name}}</h1>
+    <button @click="showInfo">点我提示</button>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: '你好',
+            address:'辽宁沈阳'
+        },
+        methods: {
+            showInfo(event) {
+                console.log(event)
+                console.log(event.target.innerText)  //获取点击框中内容
+                alert("这是一条弹出消息")
+            }
+        }
+    })
+
+    console.log(vm)
+</script>
+</body>
+</html>
