@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueComponent</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<!--
+    1. school组件本质是一个名为VueComponent的构建函数，且不是程序员自己定义的，是 Vue.extend生成的
+    2. <school/>或者<school></school>，Vue解析时会帮我们创建school组件的实例对象
+        即Vue会帮我们执行的：new VueComponent（options）
+    3. 每次调用Vue.extend.返回的都是一个全新的VueComponent
+
+    4. 关于this指向
+       （1）组件配置中：
+          组件配置中： data、methods、watch、computed中的函数、他们的this都是【VueComponents实例对象（简称vc）】
+       （2） new Vue(options)配置中：
+            data、methods、watch、computed中的函数、他们的this都是【Vue实例对象】
+-->
+<div id="app">
+    <hello></hello>
+    <hr/>
+    <school></school>
+    <hr/>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // 第一步创建student组件
+    const student = Vue.extend({
+        template:`
+             <div>
+                <h1>学生姓名：{{studentName}}</h1>
+                <h1>学生年纪：{{studentAge}}</h1>
+            </div>
+            `,
+        data() {
+            return {
+                studentName: '张三',
+                studentAge: '28'
+            }
+        }
+    })
+
+    // 第一步创建school组件
+    const school = Vue.extend({
+        template: `
+          <div>
+            <h1>学校地址：{{schoolAddress}}</h1>
+            <h1>学校名称：{{schoolName}}</h1>
+            <button @click="sendMsg">点击出信息</button>
+             <hr/>
+             <student></student>
+        </div>
+        `,
+        data() {
+            return {
+                schoolName: '* * * 大学',
+                schoolAddress: '湖南',
+            }
+        },
+        components: {
+            student
+        },
+        methods: {
+            sendMsg() {
+               console.log(this)
+            }
+        }
+    })
+
+    // 第一步创建hello组件
+    const hello = Vue.extend({
+        template:`
+             <div>
+                <h1>你好啊：{{name}}</h1>
+            </div>
+            `,
+        data() {
+            return {
+                name: '用户',
+            }
+        }
+    })
+
+    console.log('@' + school)
+    new Vue({
+        el: '#app',
+        // 第二步，注册组件
+        components: {
+            hello,
+            school
+        }
+    })
+
+</script>
+</body>
+</html>
