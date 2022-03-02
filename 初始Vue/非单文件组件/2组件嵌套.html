@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本使用</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <app></app>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // 第一步创建student组件
+    const student = Vue.extend({
+        template:`
+             <div>
+                <h1>学生姓名：{{studentName}}</h1>
+                <h1>学生年纪：{{studentAge}}</h1>
+            </div>
+            `,
+        data() {
+            return {
+                studentName: '张三',
+                studentAge: '28'
+            }
+        }
+    })
+
+    // 第一步创建school组件
+    const school = Vue.extend({
+        template: `
+          <div>
+            <h1>学校地址：{{schoolAddress}}</h1>
+            <h1>学校名称：{{schoolName}}</h1>
+             <hr/>
+             <student></student>
+            <hr/>
+        </div>
+        `,
+        data() {
+            return {
+                schoolName: '* * * 大学',
+                schoolAddress: '湖南',
+            }
+        },
+        components: {
+            student
+        }
+    })
+
+    // 第一步创建school组件
+    const test = Vue.extend({
+        template: `
+          <div>
+            <h1>{{msg}}</h1>
+        </div>
+        `,
+        data() {
+            return {
+                msg: '你好',
+            }
+        }
+    })
+
+    const app = Vue.extend({
+        components: {
+            school,
+            test
+        },
+        template: `<div>
+                        <school></school>
+                        <test></test>
+                    </div>`
+    })
+
+    new Vue({
+        el: '#app',
+        // 第二步，注册组件
+        components: {
+           app
+        }
+    })
+</script>
+</body>
+</html>
