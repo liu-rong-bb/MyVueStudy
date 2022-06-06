@@ -35,6 +35,7 @@
         },
         // vue完成模板的解析并把真实的DOM元素(没有使用v-if之类)放入页面后（挂在完毕）调用mounted
         mounted() {
+            // 定时器
             this.timer = setInterval(() => {
                 console.log('setInterval')
                 this.opacity -= 0.01
