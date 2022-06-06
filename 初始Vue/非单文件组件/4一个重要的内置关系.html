@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置关系</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+<school></school>
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    const school = Vue.extend({
+        template: `
+          <div>
+            <h1 @click="text">学校地址：{{schoolAddress}}</h1>
+            <h1>学校名称：{{schoolName}}</h1>
+             <hr/>
+        </div>
+        `,
+        data() {
+            return {
+                schoolName: '* * * 大学',
+                schoolAddress: '湖南',
+            }
+        },
+        methods: {
+            text() {
+                console.log('点击大学地址事件');
+            }
+        }
+    })
+
+    // 创建一个vm
+    new Vue({
+        el: '#root',
+        data: {
+            msg: '你好'
+        },
+        components: {
+            school
+        }
+    })
+    console.log(school.prototype.__proto__ ===  Vue.prototype)  // 让组件VC(组件实列对象)也能访问到Vue原型上的属性方法
+    // // 定义一个构造函数
+    // function Demo() {
+    //     this.a = 1
+    //     this.b = 2
+    // }
+    //
+    // // 创建一个Demo的实例对象
+    // const d = new Demo()
+    //
+    // // 显示原型属性和隐式原型属性都是原型属性
+    // console.log(Demo.prototype) // 显示原型属性
+    //
+    // console.log(d.__proto__) // 隐式原型属性
+    //
+    // console.log(d.__proto__ === Demo.prototype)
+    //
+    // // 程序员通过显示原型属性操作原型对象，追加一个x属性，值为99
+    // Demo.prototype.x = 99
+    //
+    // // 程序通过隐性原型属性拿数据
+    // console.log('@' , d)
+</script>
+</body>
+</html>
