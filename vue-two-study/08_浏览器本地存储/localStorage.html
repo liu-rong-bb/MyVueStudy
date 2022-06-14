@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+</head>
+<body>
+<h2>localStorage</h2>
+<!--sessionStorage关闭浏览器数据还是存在存在-->
+<button onclick="saveDate()">点我存储数据</button>
+<button onclick="getMsg()">点我输出信息</button>
+<button onclick="getPerson()">点我人的信息</button>
+<button onclick="removeMsg()">移除信息</button>
+<button onclick="removeAll()">移除所有数据</button>
+
+<script type="text/javascript">
+    let person = {name: '张三', age: '24'}
+    function saveDate() {
+        localStorage.setItem('msg', 'hello111')
+        localStorage.setItem('person', JSON.stringify(person))
+    }
+    function getMsg() {
+        alert(localStorage.getItem('msg'))
+    }
+
+    function getPerson() {
+        alert(localStorage.getItem('person'))
+    }
+
+    function removeMsg() {
+        localStorage.removeItem('msg')
+    }
+
+    function removeAll() {
+        localStorage.clear()
+    }
+</script>
+</body>
+</html>

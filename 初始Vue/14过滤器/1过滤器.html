@@ -30,7 +30,7 @@
 </div>
 <script type="text/javascript">
     Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
-    // 将过滤器定义成全局的，多个组件的时候可以用
+    // 将过滤器定义成全局的，多个组件的时候可以用,截取四位
     Vue.filter('mySlice', function (value) {
         return value.slice(0,4)
     })
